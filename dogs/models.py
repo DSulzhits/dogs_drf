@@ -9,7 +9,8 @@ class Dog(models.Model):
                               on_delete=models.SET_NULL, null=True)
     photo = models.ImageField(upload_to="dog_photo", verbose_name="Картинка", **NULLABLE)
     date_born = models.DateField(verbose_name="Дата рождения", null=True)
-    # owner = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
+    is_public = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Собака"
