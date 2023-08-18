@@ -17,14 +17,14 @@ class DogDetailView(RetrieveAPIView):
 class DogListView(ListAPIView):
     queryset = Dog.objects.all()
     serializer_class = DogListSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     pagination_class = DogPaginator
 
 
 class DogCreateView(CreateAPIView):
     queryset = Dog.objects.all()
     serializer_class = DogSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 class DogUpdateView(UpdateAPIView):
