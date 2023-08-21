@@ -1,5 +1,3 @@
-import json
-
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -11,16 +9,19 @@ from users.models import User, UserRoles
 class DogTestCase(APITestCase):
 
     def setUp(self) -> None:
-        # self.user = User.objects.create(
-        #     username='tester',
-        #     is_staff=True,
-        #     is_superuser=True,
-        #     is_active=True,
-        #     role=UserRoles.MODERATOR
-        # )
-        # self.user.set_password('qwerty')
-        # self.user.save()
-        # response = self.client.post()
+        self.user = User.objects.create(
+            username='tester',
+            email='tester@test1.com',
+            role=UserRoles.MODERATOR,
+            is_active=True,
+            is_superuser=True,
+            is_staff=True
+        )
+        self.user.set_password('qwerty')
+        self.user.save()
+        response = self.client.post('/users/token/', {"email": "tester@test1.com", "password": "qwerty"})
+        self.access_token = response.json().get("access")
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
 
         self.breed = Breed.objects.create(
             name='test',
