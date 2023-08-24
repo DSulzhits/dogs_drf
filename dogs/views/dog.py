@@ -1,11 +1,16 @@
-from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView, UpdateAPIView, DestroyAPIView, \
+    get_object_or_404
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from dogs.models import Dog
 from dogs.paginators import DogPaginator
 from dogs.serializers.breed import DogListSerializer
 from dogs.serializers.dog import DogSerializer, DogDetailSerializer
 from dogs.permissions import IsDogOwner, IsModerator, IsDogPublic
+
+from users.models import User
 
 
 class DogDetailView(RetrieveAPIView):
@@ -37,3 +42,11 @@ class DogDeleteView(DestroyAPIView):
     queryset = Dog.objects.all()
     serializer_class = DogSerializer
     permission_classes = [IsAuthenticated, IsDogOwner]
+
+
+class SetLikeToDog(APIView):
+    def post(self, request):
+        user = get_object_or_404(User, pk=request.data.get("user"))
+        dog = get_object_or_404(Dog, pk=request.data.get("dog"))
+        dog.likes.add(user)
+        return Response({"result": f"Лайк добавлен {dog} от {user}"}, status=200)
