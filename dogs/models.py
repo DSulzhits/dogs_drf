@@ -11,6 +11,7 @@ class Dog(models.Model):
     date_born = models.DateField(verbose_name="Дата рождения", null=True)
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
     price = models.PositiveIntegerField(null=True)
+    likes = models.ManyToManyField("users.User", related_name="user_likes")
     is_public = models.BooleanField(default=False)
 
     class Meta:
