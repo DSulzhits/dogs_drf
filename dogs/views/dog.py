@@ -11,6 +11,7 @@ from dogs.serializers.dog import DogSerializer, DogDetailSerializer
 from dogs.permissions import IsDogOwner, IsModerator, IsDogPublic
 
 from users.models import User
+from dogs.tasks import send_message_about_like
 
 
 class DogDetailView(RetrieveAPIView):
@@ -48,5 +49,9 @@ class SetLikeToDog(APIView):
     def post(self, request):
         user = get_object_or_404(User, pk=request.data.get("user"))
         dog = get_object_or_404(Dog, pk=request.data.get("dog"))
+        # if user in dog.likes.all():
+        if dog.likes.filter(id=user.id).exists():
+            return Response({"result": f"У собаки {dog} уже есть лайк от {user}"}, status=200)
+        send_message_about_like.delay(user.username)
         dog.likes.add(user)
         return Response({"result": f"Лайк добавлен {dog} от {user}"}, status=200)
