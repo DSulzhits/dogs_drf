@@ -1,0 +1,64 @@
+[
+  {
+    "model": "dogs.dog",
+    "pk": 1,
+    "fields": {
+      "name": "Шарик",
+      "breed": 2,
+      "photo": "",
+      "date_born": "2022-03-03",
+      "owner": 1,
+      "price": 5000,
+      "is_public": true,
+      "likes": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 2,
+    "fields": {
+      "name": "Бобик",
+      "breed": 3,
+      "photo": "",
+      "date_born": "2022-03-04",
+      "owner": 1,
+      "price": 10000,
+      "is_public": false,
+      "likes": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 3,
+    "fields": {
+      "name": "Снежок",
+      "breed": 2,
+      "photo": "",
+      "date_born": "2022-03-05",
+      "owner": 2,
+      "price": 15000,
+      "is_public": false,
+      "likes": []
+    }
+  },
+  {
+    "model": "dogs.breed",
+    "pk": 2,
+    "fields": {
+      "name": "Немецкая овчарка",
+      "description": "Служебная порода"
+    }
+  },
+  {
+    "model": "dogs.breed",
+    "pk": 3,
+    "fields": {
+      "name": "Французский бульдог",
+      "description": "Летучая мышь"
+    }
+  }
+]
