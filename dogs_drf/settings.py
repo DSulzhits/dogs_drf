@@ -86,14 +86,22 @@ WSGI_APPLICATION = 'dogs_drf.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 load_dotenv()
-postgres_key = os.getenv('POSTGRESSQL_KEY')
+postgres_key_local = os.getenv('POSTGRESSQL_KEY')
+postgres_key_docker = os.getenv('POSTGRESSQL_KEY_DOCKER')
+database_local = os.getenv('DATABASE_LOCAL')
+database_docker = os.getenv('DATABASE_DOCKER')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dogs_drf',
+        # 'NAME': database_local,
+        'NAME': database_docker,
+        # 'PORT': '5432',  # LOCAL_PORT
+        'PORT': '5433',  # DOCKER_PORT
         'USER': 'postgres',
-        'PORT': '5432',
-        'PASSWORD': postgres_key
+        # 'PASSWORD': postgres_key_local,
+        'PASSWORD': postgres_key_docker,
+        'HOST': '127.0.0.1'
     }
 }
 
