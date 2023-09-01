@@ -91,15 +91,25 @@ postgres_key_docker = os.getenv('POSTGRESSQL_KEY_DOCKER')
 database_local = os.getenv('DATABASE_LOCAL')
 database_docker = os.getenv('DATABASE_DOCKER')
 
+# # for local database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': database_local,
+#         'PORT': '5432',  # LOCAL_PORT
+#         'USER': 'postgres',
+#         'PASSWORD': postgres_key_local,
+#         'HOST': '127.0.0.1'
+#     }
+# }
+
+# for docker database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': database_local,
         'NAME': database_docker,
-        # 'PORT': '5432',  # LOCAL_PORT
         'PORT': '5433',  # DOCKER_PORT
         'USER': 'postgres',
-        # 'PASSWORD': postgres_key_local,
         'PASSWORD': postgres_key_docker,
         'HOST': '127.0.0.1'
     }
